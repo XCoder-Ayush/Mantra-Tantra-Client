@@ -26,17 +26,17 @@ const TopUsersPage = () => {
       {
         throw new Error('Failed to fetch data');
       }
-      console.log("top users");
-      console.log(todayResponse);
-      console.log('Error not yet');
+
       const weekjsonData = await weekResponse.json();
       const allTimejsonData = await allTimeResponse.json();
       const monthjsonData = await monthResponse.json();
       const todayJsonData = await todayResponse.json();
+
       setTopUsersWeek(weekjsonData.data);
       setTopUsersAllTime(allTimejsonData.data);
       setTopUsersMonth(monthjsonData.data);
       setTopUsersToday(todayJsonData.data)
+
     } catch (error) {
       throw new Error('Catch');
     }
@@ -51,6 +51,7 @@ const TopUsersPage = () => {
     month: topUsersMonth,
     allTime:topUsersAllTime
   };
+  
   function Separator({ color = "black", height = 1 }) {
     return (
       <hr

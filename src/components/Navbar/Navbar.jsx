@@ -4,9 +4,11 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { HamburgetMenuClose, HamburgetMenuOpen } from "../Icons";
 import RegisterModal from "../RegisterModal/RegisterModal";
+
 function Navbar() {
   const [userData, setUserData] = useState(null);
   const [isModalOpenRegister, setIsModalOpenRegister] = useState(false);
+  const [click, setClick] = useState(false);
   
   const openModalRegister = () => {
     setIsModalOpenRegister(true);
@@ -15,55 +17,46 @@ function Navbar() {
   const closeModalRegister = () => {
     setIsModalOpenRegister(false);
   };
+
   useEffect(() => {
     const getUserData = async () => {
-      // const accessToken = Cookies.get('connect.sid');
-      console.log("Navbar Hai")
-      // console.log(accessToken);
       try {
         axios.defaults.withCredentials = true;
-        let response = await axios(`${process.env.REACT_APP_SERVER_URL}/login/success`, {
+        let response = await axios(`${process.env.REACT_APP_SERVER_URL}/api/v1/login/success`, {
           method: 'GET',
           withCredentials: true
         })
-        console.log("user ka details");
-        console.log(response.data);
-        setUserData(response.data);
-        localStorage.setItem('userId', response.data.id);
-        localStorage.setItem('userdetails',JSON.stringify(response.data));
-        console.log(JSON.parse(localStorage.getItem('userdetails')));
-        // console.log("response.data.user.id");
+
+        setUserData(response.data.data);
+        localStorage.setItem('userId', response.data.data.id);
+        localStorage.setItem('userDetails',JSON.stringify(response.data.data));
+
+        // console.log(JSON.parse(localStorage.getItem('userDetails')));
+
       } catch (error) {
-        console.log("Error fetching user data:", error);
+        console.log("Error Fetching User Data:", error);
       }
     };
 
     getUserData();
   }, []);
 
-  useEffect(() => {
-    console.log("User Data Updated:", userData);
-  }, [userData]);
-  useEffect(() => {
-    console.log("Checkimg user data:", userData);
-  }, [userData]);
   const logout = async () => {
     try {
-      await axios.get(`${process.env.REACT_APP_SERVER_URL}/logout`, {
+      await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/v1/user/logout`, {
         withCredentials: true,
       });
       
-      setUserData(null); // Clear user data after logout
-     
+      setUserData(null); 
+
       window.location.href = "/login";
     } catch (error) {
-      console.log("Error logging out:", error);
+      console.error("Error Logging Out : ", error);
     }
   };
 
-  const [click, setClick] = useState(false);
-
   const handleClick = () => setClick(!click);
+
   return (
     <>
       <nav className="navbar">
@@ -163,7 +156,7 @@ function Navbar() {
             <li onClick={logout} className="nav-item">
               <NavLink
                
-                to="/logout"
+                to="/login"
                 activeclassname="active"
                 className="nav-links"
                 onClick={handleClick}

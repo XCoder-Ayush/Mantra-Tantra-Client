@@ -1,38 +1,38 @@
-import React from 'react'
-import "./RightNavigation.css"
-import {RightOutlined} from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import React from "react";
+import "./RightNavigation.css";
+import { RightOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 const RightNavigation = () => {
   return (
-    <div className='right-nav-main'>
-        <p>Navigation</p>
-        <Link to="/BhagwanSwaminarayan">
+    <div className="right-nav-main">
+      <p>Navigation</p>
+      <Link to="/BhagwanSwaminarayan">
         <div>
-        <RightOutlined /> Bhagwan Swaminarayan <br />
+          <RightOutlined /> Bhagwan Swaminarayan <br />
         </div>
-        </Link>
-        <Link to=''>
+      </Link>
+      <Link to="/">
         <div>
-        <RightOutlined /> Contact Us <br />
+          <RightOutlined /> Contact Us <br />
         </div>
-        </Link>
-        <Link to="FAQ">
+      </Link>
+      <Link to="/faq">
         <div>
-        <RightOutlined /> Frequently Asked Questions <br />
+          <RightOutlined /> Frequently Asked Questions <br />
         </div>
-        </Link>
-        <Link>
+      </Link>
+      <Link to="/testimonial">
         <div>
-        <RightOutlined /> Testimonials <br />
+          <RightOutlined /> Testimonials <br />
         </div>
-        </Link>
-        <Link to="topusers">
+      </Link>
+      <Link to="/topusers">
         <div>
-        <RightOutlined /> Top Users <br />
+          <RightOutlined /> Top Users <br />
         </div>
-        </Link>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default RightNavigation
+export default RightNavigation;

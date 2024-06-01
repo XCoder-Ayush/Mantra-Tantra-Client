@@ -1,98 +1,125 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar/Navbar';
-import './MyPerformance.css';
-import BarChart from './BarChart';
-import Bottom from '../../components/Bottom/Bottom';
-
+import React, { useState, useEffect } from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import "./MyPerformance.css";
+import BarChart from "./BarChart";
+import Bottom from "../../components/Bottom/Bottom";
+import axios from "axios";
 const MyPerformance = () => {
 
-  const user_details = JSON.parse(localStorage.getItem('userdetails'));
+  const user_details = JSON.parse(localStorage.getItem("userDetails"));
+  const userId = localStorage.getItem("userId");
+
   const [userMantraData, setUserMantraData] = useState(null);
-  const [currentMonthGraphData, setCurrentMonthGraphData] = useState(null)
-  const [previousMonthGraphData, setPreviousMonthGraphData] = useState(null)
+  const [currentMonthGraphData, setCurrentMonthGraphData] = useState(null);
+  const [previousMonthGraphData, setPreviousMonthGraphData] = useState(null);
   const [performanceData, setPerformanceData] = useState({
-    fullName: 'Fetching...',
-    todayMantralekhan: 'Fetching...',
-    weekMantralekhan: 'Fetching...',
-    totalMantralekhan: 'Fetching...'
+    fullName: "Fetching...",
+    todayMantralekhan: "Fetching...",
+    weekMantralekhan: "Fetching...",
+    totalMantralekhan: "Fetching...",
   });
   const [currentDateTime, setCurrentDateTime] = useState(null);
+  const[userData,setUserData]=useState(null);
+  const apiUrl = process.env.REACT_APP_SERVER_URL;
 
-  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    const fetchPerformanceData = async()=>{
+    const getUserData = async () => {
       try {
-        const response=await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/user/performance/${userId}`,{
-          credentials: 'include'
+        axios.defaults.withCredentials = true;
+        let response = await axios(`${apiUrl}/api/v1/login/success`, {
+          method: 'GET',
+          withCredentials: true
         })
-        const performanceDataFetched= await response.json();
-        // console.log(performanceDataFetched);
-        setPerformanceData(performanceDataFetched.data)
+
+        setUserData(response.data.data);
+        fetchPerformanceData();
+        fetchData();
       } catch (error) {
-        throw new Error('Failed To Fetch User Data');
+        console.log("Error Fetching User Data.", error);
+        window.location.href = "/login";
       }
-    }
+    };
+    
+    const fetchPerformanceData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/api/v1/user/performance/${userId}`,
+          {
+            credentials: "include",
+          },
+        );
+        const performanceDataFetched = await response.json();
+        // console.log(performanceDataFetched);
+        setPerformanceData(performanceDataFetched.data);
+      } catch (error) {
+        throw new Error("Failed To Fetch User Data");
+      }
+    };
+
     const fetchData = async () => {
       try {
-
-        const userMantraDataResponse = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/user/stats/${userId}`,{
-          credentials: 'include'
-        });
+        const userMantraDataResponse = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/api/v1/user/stats/${userId}`,
+          {
+            credentials: "include",
+          },
+        );
 
         if (!userMantraDataResponse.ok) {
-          throw new Error('Failed To Fetch Mantralekhan Stats Of User.');
+          throw new Error("Failed To Fetch Mantralekhan Stats Of User.");
         }
 
         const userMantraStats = await userMantraDataResponse.json();
         // console.log(userMantraStats);
         setUserMantraData(userMantraStats);
       } catch (error) {
-        throw new Error('Catch');
+        throw new Error("Catch");
       }
     };
-
-    fetchPerformanceData();
-    fetchData();
+    getUserData();
 
   }, []);
 
-
   useEffect(() => {
+    // console.log(userMantraData);
 
-    console.log(userMantraData);
-   
-    if(userMantraData){
-      
+    if (userMantraData) {
       setCurrentMonthGraphData({
-        labels: userMantraData.data.currentMonthMantralekhanDto?.map((data) => data.date),
-        datasets: [{
-          label: "This Month",
-          data: userMantraData?.data.currentMonthMantralekhanDto?.map((data) => data.mantraCount),
-          backgroundColor: [
-            "#f3ba2f",
-          ],
-          borderColor: "white",
-          borderWidth: 2,
-        }]
-      })
-      
+        labels: userMantraData.data.currentMonthMantralekhanDto?.map(
+          (data) => data.date,
+        ),
+        datasets: [
+          {
+            label: "This Month",
+            data: userMantraData?.data.currentMonthMantralekhanDto?.map(
+              (data) => data.mantraCount,
+            ),
+            backgroundColor: ["#f3ba2f"],
+            borderColor: "white",
+            borderWidth: 2,
+          },
+        ],
+      });
+
       setPreviousMonthGraphData({
-        labels: userMantraData.data.previousMonthMantralekhanDto?.map((data) => data.date),
-        datasets: [{
-          label: "Previous Month",
-          data: userMantraData?.data.previousMonthMantralekhanDto?.map((data) => data.mantraCount),
-          backgroundColor: [
-            "#f3ba2f",
-          ],
-          borderColor: "white",
-          borderWidth: 2,
-        }]
-      })
-
+        labels: userMantraData.data.previousMonthMantralekhanDto?.map(
+          (data) => data.date,
+        ),
+        datasets: [
+          {
+            label: "Previous Month",
+            data: userMantraData?.data.previousMonthMantralekhanDto?.map(
+              (data) => data.mantraCount,
+            ),
+            backgroundColor: ["#f3ba2f"],
+            borderColor: "white",
+            borderWidth: 2,
+          },
+        ],
+      });
     }
-  }, [userMantraData])
-
+  }, [userMantraData]);
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -105,34 +132,47 @@ const MyPerformance = () => {
   }, []);
 
   return (
-    <div className='performance-main'>
+    <div className="performance-main">
       <Navbar></Navbar>
-      <div className='middle'>
+      <div className="middle">
         <h2>My Performance</h2>
       </div>
 
-
       <div className="parent">
-
-        <div className='child1'>
+        <div className="child1">
           <img src={user_details.avatar} alt="Profile" />
         </div>
 
-        <div className='child2'>
-          <p><strong>Name:</strong>  {performanceData.fullName}</p>
-          <p><strong>Today's Mantralekhan:</strong> {performanceData.todayMantralekhan}</p>
-          <p><strong>This Week's Mantralekhan:</strong> {performanceData.weekMantralekhan}</p>
-          <p><strong>Total Mantralekhan:</strong> {user_details.mantraChanted}</p>
-          <p><strong>Current Time:</strong> {currentDateTime && currentDateTime.toLocaleString()}</p>
+        <div className="child2">
+          <p>
+            <strong>Name:</strong> {performanceData.fullName}
+          </p>
+          <p>
+            <strong>Today's Mantralekhan:</strong>{" "}
+            {performanceData.todayMantralekhan}
+          </p>
+          <p>
+            <strong>This Week's Mantralekhan:</strong>{" "}
+            {performanceData.weekMantralekhan}
+          </p>
+          <p>
+            <strong>Total Mantralekhan:</strong> {performanceData.totalMantralekhan}
+          </p>
+          <p>
+            <strong>Current Time:</strong>{" "}
+            {currentDateTime && currentDateTime.toLocaleString()}
+          </p>
         </div>
-
       </div>
-      <div className='chartclass'>
-        {currentMonthGraphData && <BarChart chartData={currentMonthGraphData} />}
-
-      </div>      
       <div className="chartclass">
-        {previousMonthGraphData && <BarChart chartData={previousMonthGraphData} />}
+        {currentMonthGraphData && (
+          <BarChart chartData={currentMonthGraphData} />
+        )}
+      </div>
+      <div className="chartclass">
+        {previousMonthGraphData && (
+          <BarChart chartData={previousMonthGraphData} />
+        )}
       </div>
       <div>
         <Bottom></Bottom>

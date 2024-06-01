@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Bottom from '../../components/Bottom/Bottom';
 
 const EditProfile = () => {
-  const user_details = JSON.parse(localStorage.getItem('userdetails'));
+  const user_details = JSON.parse(localStorage.getItem('userDetails'));
   const [fullName, setFullName] = useState(user_details.fullName);
   const [email, setEmail] = useState(user_details.email);
   const [address, setAddress] = useState(user_details.address);
@@ -18,10 +18,26 @@ const EditProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [pic, setPic] = useState();
+  const[userData,setUserData]=useState(null);
+  const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 
   useEffect(() => {
-    
+    const getUserData = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        let response = await axios(`${apiUrl}/api/v1/login/success`, {
+          method: 'GET',
+          withCredentials: true
+        })
+
+        setUserData(response.data.data);
+      } catch (error) {
+        console.log("Error Fetching User Data.", error);
+        window.location.href = "/login";
+      }
+    };
+    getUserData();
     updateCurrentTime();
   }, [timeZone]);
 
@@ -65,12 +81,12 @@ const EditProfile = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/user/update`, requestOptions);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error('Error updating user details:', error);
     }
   
-    console.log('Form submitted:', { fullName, email, address, phone, timeZone });
+    // console.log('Form submitted:', { fullName, email, address, phone, timeZone });
   
     setFullName('');
     setEmail('');
@@ -105,48 +121,11 @@ const EditProfile = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/user/change-password`, requestOptions);
       const data = await response.json();
-      console.log("password change response");
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error('Error changing password:', error);
     }
   };
-
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0];
-  //   console.log(file);
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPic(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // const handleSubmitImage = async (event) => {
-  //   event.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append('avatar', pic);
-  //   formData.append('id', user_details.id);
-  //   console.log(pic);
-  //   try {
-  //     const response = await fetch('${}/api/v1/user/profile-picture', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-  
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  
-  //     const responseData = await response.json();
-  //     console.log("image update response");
-  //     console.log(responseData);
-  //   } catch (error) {
-  //     console.error('Error updating avatar:', error);
-  //   }
-  // };
   
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -168,9 +147,11 @@ const EditProfile = () => {
         },
         withCredentials: true, 
       });
-      console.log('File Uploaded Successfully : ', response.data);
+
+      // console.log('File Uploaded Successfully : ', response.data);
+
       //Update User In Local Storage
-      const user = await axios(`${process.env.REACT_APP_SERVER_URL}/login/success`, {
+      const user = await axios(`${process.env.REACT_APP_SERVER_URL}/api/v1/login/success`, {
         method: 'GET',
         withCredentials: true
       })
@@ -191,7 +172,7 @@ const EditProfile = () => {
         ) : (
           <img src={defaultImage} alt="Default Avatar" />
         )}
-        <div>
+        <div className='hidden'>
           <input type="file" accept="image/*" onChange={handleFileChange} /> <br />
           <button type="submit" onClick={handleImageSubmit}>Save</button>
         </div>

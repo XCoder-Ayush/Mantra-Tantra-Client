@@ -1,15 +1,15 @@
-.edit-main{
+.edit-main {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-.edit{
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+.edit {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
-.edit button{
-    background-color: #de4620;;
+.edit button {
+  background-color: #de4620;
   color: white;
   padding: 10px 20px;
   font-size: 16px;
@@ -18,50 +18,51 @@
   cursor: pointer;
   margin-top: 2%;
 }
-.edit input{
-    width:15rem;
+.edit input {
+  width: 15rem;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box; /* Ensures padding and border are included in the total width */
   font-size: 16px;
-  margin-top: .8%;
+  margin-top: 0.8%;
 }
-.edit input:focus{
-    border-color: #007bff; /* Change border color on focus */
+.edit input:focus {
+  border-color: #007bff; /* Change border color on focus */
   outline: none; /* Remove default focus outline */
-
 }
- .edit-image {
-    text-align: center;
-    width: 70%;
-    margin-left: 15%;
-    border: 2px solid #ddd;
-    padding: 1rem;
-  }
-  .edit-user-details{
-    text-align: center;
-    width: 70%;
-    margin-left: 15%;
-    border: 2px solid #ddd;
-    padding: 1rem;
-  }
-  .edit-change-password{
-    text-align: center;
-    width: 70%;
-    margin-left: 15%;
-    border: 2px solid #ddd;
-    padding: 1rem;
-  }
-  .edit-image img{
-    width:auto;
-  }
-  .edit-image input{
-    align-items: center;
-    padding: 1rem;
-   
-  }
-  /* .edit-image img {
+.edit-image {
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+  border: 2px solid #ddd;
+  padding: 1rem;
+}
+.edit-user-details {
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+  border: 2px solid #ddd;
+  padding: 1rem;
+}
+.edit-change-password {
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+  border: 2px solid #ddd;
+  padding: 1rem;
+}
+.edit-image img {
+  width: auto;
+}
+.edit-image input {
+  align-items: center;
+  padding: 1rem;
+}
+.hidden {
+  display: none;
+}
+/* .edit-image img {
     max-width: 100%;
     height: auto;
     margin-bottom: 20px;
