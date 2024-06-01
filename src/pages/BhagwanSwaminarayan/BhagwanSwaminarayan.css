@@ -1,0 +1,47 @@
+.Bhagwan-Main{
+    display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.Bhagwan-main-div{
+    flex: 1 0 auto;
+    display: flex;
+   
+}
+.Bhagwan-child1-div{
+    width: 20%;
+    margin-left: 7%;
+   
+}
+.Bhagwan-child2-div{
+    width: 45%;
+}
+.Bhagwan-child3-div{
+    width: 30%;
+}
+.Bhagwan-page-img{
+    width: 90%;
+    margin-bottom: 1rem;
+   
+}
+.head-text{
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+@media screen and (max-width: 550px) {
+    .Bhagwan-main-div{
+        flex-direction: column;
+    }
+    .Bhagwan-child1-div{
+        width: 90%;
+    }
+    .Bhagwan-child2-div{
+        width: 90%;
+        margin-left: 8%;
+    }
+    .Bhagwan-child3-div{
+        width: 90%;
+        margin-left: 8%;
+    }
+  }

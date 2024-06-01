@@ -1,0 +1,60 @@
+.home-main{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.homepage-container {
+
+  flex: 1 0 auto;
+  border: 20x solid red;
+  margin-top: 2%;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+}
+
+
+.homepage-button {
+  background-color: #de4620;;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.homepage-button:hover {
+  background-color: #0056b3;
+}
+ 
+ 
+ @media screen and (min-width: 550px) {
+  .image-container {
+    float: left;
+    width: 40%;
+    padding-right: 15px;
+   
+  }
+  .image-container img {
+    width: 100%;
+  }
+  .text-container {
+    float: left;
+    width: 60%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .image-container {
+    width: 100%;
+  }
+  .image-container img {
+    width: 100%;
+  }
+  .text-container {
+    width: 100%;
+    margin-left: 4%;
+  }
+  .homepage-button{
+    margin-left: 35%;
+  }
+}

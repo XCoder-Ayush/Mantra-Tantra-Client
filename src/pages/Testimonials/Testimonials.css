@@ -1,0 +1,21 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+.testimonials-div{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.testimonials-child1-div{
+    width: 60%;
+    margin-left: 7%;
+    margin-right: 5%;
+   font-family: 'Times New Roman', Times, serif;
+   height: 90%;
+}
+.testimonials-bottom{
+    position:fixed;
+bottom:0;
+width: 100%;
+}

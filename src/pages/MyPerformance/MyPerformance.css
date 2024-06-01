@@ -1,0 +1,43 @@
+.performance-main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.parent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  background-color: #e1dada;
+  width: 80%;
+  margin-left: 10%;
+  border: 2px solid #cecccc;
+}
+.middle {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.child1 {
+  margin-left: 2%;
+  padding-top: 2rem;
+  padding-right: 14rem;
+}
+.child2 {
+  margin-top: 2rem;
+}
+.chartclass {
+  display: flex;
+  justify-content: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 50vh;
+}
+@media only screen and (max-width: 700px) {
+  .child1 {
+    padding-right: 3rem;
+  }
+  .chartclass {
+    margin-top: 10%;
+  }
+}

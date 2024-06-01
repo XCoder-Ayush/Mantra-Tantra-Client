@@ -1,0 +1,37 @@
+.right-nav-main {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .right-nav-main p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Remove underline from links */
+  .right-nav-main a {
+    text-decoration: none;
+    color: inherit; /* Inherit text color */
+  }
+  
+  .right-nav-main div {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .right-nav-main div:hover {
+    transform: scale(1.05);
+  }
+  
+  .right-nav-main div:last-child {
+    background-color: #e74c3c;
+  }
+  
+  .right-nav-main div:last-child:hover {
+    transform: scale(1.05);
+  }
+  

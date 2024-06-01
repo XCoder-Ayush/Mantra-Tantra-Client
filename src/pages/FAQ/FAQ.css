@@ -1,0 +1,50 @@
+.fav-main{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.faq-main-div{
+  display: flex;
+  flex: 1 0 auto;
+ margin-top: 5%;
+}
+.faq-head{
+  margin-bottom: 4%;
+}
+.faq-main-div span{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.faq-child1-div{
+  width: 60%;
+  margin-left: 7%;
+  margin-right: 5%;
+ font-family: 'Times New Roman', Times, serif;
+}
+.faq-child2-div{
+  width: 30%;
+}
+
+.faq-page-img{
+  width: 90%;
+  margin-bottom: 1rem;
+ 
+}
+.faq-head{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bolder;
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 550px) {
+  .faq-main-div{
+      flex-direction: column;
+  }
+  .faq-child1-div{
+      width: 90%;
+  }
+  .faq-child2-div{
+      width: 90%;
+      margin-left: 8%;
+  }
+ 
+}
